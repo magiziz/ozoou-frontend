@@ -1,18 +1,87 @@
-.Todochildren {
+.Todoparent {
   border: 1px solid #830fcd;
   padding: 10px;
   margin: 25px 0;
   border-radius: 5px;
 
-  .TodochildrenCheckTotal {
+  .TodoparentCheckTotal {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .TodoparentCheckTotalCheck {
+      display: flex;
+      align-items: center;
+      h1 {
+        margin-left: 15px;
+        color: #830fcd;
+      }
+    }
+
+    .completedTaskButton {
+      display: flex;
+      align-items: center;
+      button {
+        display: flex;
+        align-items: center;
+        background: #f59a10;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        outline-width: 0;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-right: 10px;
+        padding: 5px;
+        margin-left: 5px;
+      }
+    }
+
+    .TododparentEditTime {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .TododparentEdit {
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        button {
+          padding: 5px;
+          background: #830fcd;
+          color: #fff;
+          font-weight: 600;
+          border: none;
+          outline-width: 0;
+          cursor: pointer;
+          border-radius: 5px;
+          margin-right: 10px;
+        }
+      }
+    }
 
     input {
       height: 35px;
       width: 35px;
       pointer-events: none;
     }
+  }
+}
+
+.childrenContainer {
+  border-top: 2px solid #830fcd;
+  margin: 15px 0;
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 25px;
+    height: 25px;
+  }
+  h1 {
+    font-size: 25px;
+    color: #830fcd;
+    margin-left: 10px;
   }
 }

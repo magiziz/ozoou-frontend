@@ -1,20 +1,18 @@
 import React from "react";
 import styles from "../../styles/Todochildren.module.scss";
+import { TodoChildren } from "../../types/todos";
 
-const TodoChildren = () => {
+export interface Props {
+  TodoChild: any;
+}
+
+const TodoChildrenData: React.FC<Props> = ({ TodoChild }) => {
   return (
-    <div className={styles.Todochildren}>
-      <div className={styles.TodochildrenCheckTotal}>
-        <input type="checkbox" checked={true} />
-
-        <div className={styles.TododchildrenEditTime}>
-            <div className={styles.TododchildrenEditTime}>
-
-            </div>
-        </div>
-      </div>
+    <div key={TodoChild?.id} className={styles.childrenContainer}>
+      <input type="checkbox" checked />
+      <h1>{TodoChild?.title}</h1>
     </div>
   );
 };
 
-export default TodoChildren;
+export default TodoChildrenData;

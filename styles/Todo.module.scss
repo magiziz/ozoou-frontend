@@ -1,0 +1,51 @@
+.todoOverlay {
+  padding: 50px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .todoTitle {
+    color: #830fcd;
+  }
+
+  .todoInputAddContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+
+    input {
+      padding: 10px;
+      font-size: 15px;
+      border: 2px solid #830fcd;
+      border-radius: 5px;
+      outline-width: 0;
+      color: #830fcd;
+      min-width: 350px;
+    }
+
+    input::placeholder {
+      color: #830fcd;
+    }
+
+    button {
+      padding: 12px;
+      margin-left: 15px;
+      outline-width: 0;
+      border-radius: 5px;
+      background: #830fcd;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .TodoTableContainer {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+  }
+}

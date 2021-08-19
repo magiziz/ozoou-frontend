@@ -1,0 +1,18 @@
+.Todochildren {
+  border: 1px solid #830fcd;
+  padding: 10px;
+  margin: 25px 0;
+  border-radius: 5px;
+
+  .TodochildrenCheckTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+      height: 35px;
+      width: 35px;
+      pointer-events: none;
+    }
+  }
+}

@@ -9,8 +9,10 @@ import Loader from "react-loader-spinner";
 
 const TodoLayout: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [todosChild, setTodosChild] = useState<TodoChildren[]>([]);
+  const [todosChild, setTodosChild] = useState<TodoChildren[] | any>([]);
   const [loading, setLoading] = useState<Boolean>(true);
+  const [selectedId, setSelectedId] = useState<string | any>("");
+  const [editTitle, setEditTitle] = useState<any>(false);
   const [input, setInput] = useState<string>("");
 
   const getListData = async () => {
@@ -47,7 +49,7 @@ const TodoLayout: React.FC = () => {
   };
 
   const setEdit = (id: string) => {
-    alert(id);
+    setSelectedId(id);
   };
 
   return (
@@ -67,9 +69,18 @@ const TodoLayout: React.FC = () => {
         <Loader type="Puff" color="#5B16FA" height={150} width={150} />
       ) : (
         <TodoTable
+          SelectedId={selectedId}
           todos={todos}
-          setEdit={setEdit}
           TodoChild={todosChild.data}
+          setSelectedId={(id: string) => {
+            setSelectedId(id);
+            setEditTitle(false);
+          }}
+          setEditTitle={(id: string, boolean: Boolean) => {
+            setEditTitle(boolean);
+            setSelectedId(id);
+          }}
+          editTitle={editTitle}
         />
       )}
     </div>

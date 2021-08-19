@@ -6,15 +6,32 @@ import Todos from "./Todos";
 
 interface Props {
   todos: Todo[];
-  setEdit: any;
+  setEditTitle: any;
   TodoChild: any;
+  SelectedId: any;
+  setSelectedId: any;
+  editTitle: any | Boolean;
 }
 
-const TodoTable: React.FC<Props> = ({ todos, setEdit, TodoChild }) => {
+const TodoTable: React.FC<Props> = ({
+  todos,
+  setEditTitle,
+  TodoChild,
+  SelectedId,
+  setSelectedId,
+  editTitle,
+}) => {
   return (
     <div className={styles.TodoTableContainer}>
       {todos.map((todo: Todo) => (
-        <Todos todos={todo} setEdit={setEdit} TodoChild={TodoChild} />
+        <Todos
+          selectedId={SelectedId}
+          todos={todo}
+          setEditTitle={setEditTitle}
+          TodoChild={TodoChild}
+          setSelectedId={setSelectedId}
+          editTitle={editTitle}
+        />
       ))}
     </div>
   );

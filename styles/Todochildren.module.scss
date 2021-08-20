@@ -14,7 +14,12 @@
       align-items: center;
       flex: 1;
       width: 100%;
-    
+      form {
+        width: 100%;
+        button {
+          display: none;
+        }
+      }
 
       .TodoparentEditInput {
         pointer-events: all !important;
@@ -27,7 +32,13 @@
         color: #830fcd;
         box-sizing: border-box;
         width: 100% !important;
+        margin-left: 5px;
       }
+
+      .TodoparentEditInput::placeholder {
+        color: #830fcd;
+      }
+
       h1 {
         margin-left: 15px;
         color: #830fcd;
@@ -80,15 +91,14 @@
     input {
       height: 35px;
       width: 35px;
-      pointer-events: none;
     }
   }
 }
 
 .childrenContainer {
-  border-top: 2px solid #830fcd;
+  border: 1px solid #830fcd;
   margin: 15px 0;
-  padding: 15px 0;
+  padding: 10px;
   display: flex;
   align-items: center;
 
@@ -104,6 +114,7 @@
 }
 
 .TododparentChildren {
+  margin-top: 15px;
   .TodoparentChildrenSubmitInput {
     display: flex;
 

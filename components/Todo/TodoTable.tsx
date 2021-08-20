@@ -6,20 +6,26 @@ import Todos from "./Todos";
 
 interface Props {
   todos: Todo[];
-  setEditTitle: any;
   TodoChild: any;
   SelectedId: any;
   setSelectedId: any;
-  editTitle: any | Boolean;
+  onSubmitUpdateTitleTodo: any;
+  setInputChildren: any;
+  inputChildren: any;
+  createChildrenTodoOnSubmit: any;
+  updateStatusChildren: any;
 }
 
 const TodoTable: React.FC<Props> = ({
   todos,
-  setEditTitle,
   TodoChild,
   SelectedId,
   setSelectedId,
-  editTitle,
+  onSubmitUpdateTitleTodo,
+  setInputChildren,
+  inputChildren,
+  createChildrenTodoOnSubmit,
+  updateStatusChildren,
 }) => {
   return (
     <div className={styles.TodoTableContainer}>
@@ -27,10 +33,13 @@ const TodoTable: React.FC<Props> = ({
         <Todos
           selectedId={SelectedId}
           todos={todo}
-          setEditTitle={setEditTitle}
           TodoChild={TodoChild}
           setSelectedId={setSelectedId}
-          editTitle={editTitle}
+          onSubmitUpdateTitleTodo={onSubmitUpdateTitleTodo}
+          setInputChildren={setInputChildren}
+          inputChildren={inputChildren}
+          createChildrenTodoOnSubmit={createChildrenTodoOnSubmit}
+          updateStatusChildren={updateStatusChildren}
         />
       ))}
     </div>

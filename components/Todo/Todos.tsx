@@ -7,31 +7,31 @@ import TodoChildren from "../TodoChildren/TodoChildren";
 const Todos = ({
   todos,
   TodoChild,
-  setEditTitle,
-  editTitle,
   selectedId,
   setSelectedId,
+  onSubmitUpdateTitleTodo,
+  setInputChildren,
+  inputChildren,
+  createChildrenTodoOnSubmit,
+  updateStatusChildren,
 }: any) => {
   return (
     <div key={todos.id} className={styles.Todoparent}>
       <div className={styles.TodoparentCheckTotal}>
-        <div className={styles.TodoparentCheckTotalCheck}>
-          <input type="checkbox" checked={true} />
-
-          {editTitle && selectedId === todos.id ? (
-            <input
-              type="text"
-              placeholder="Edit your text"
-              className={styles.TodoparentEditInput}
-            />
-          ) : (
-            <h1>{todos.title}</h1>
-          )}
-        </div>
+        <form className={styles.TodoparentCheckTotalCheck}>
+          <input
+            type="checkbox"
+            checked={todos.status === "completed" ? true : false}
+            onClick={() => {
+              onSubmitUpdateTitleTodo(todos.status, todos.id);
+              setSelectedId(todos.id);
+            }}
+          />
+          <h1>{todos.title}</h1>
+        </form>
 
         <div className={styles.TododparentEditTime}>
           <div className={styles.TododparentEdit}>
-            <button onClick={() => setEditTitle(todos.id, true)}>Edit</button>
             <span>
               {moment(new Date(todos.created_at).toUTCString())
                 .startOf("hour")
@@ -47,18 +47,30 @@ const Todos = ({
           </p>
         </div>
       </div>
-      {selectedId === todos.id && !editTitle && (
+      {selectedId === todos.id && (
         <div className={styles.TododparentChildren}>
-          {TodoChild?.map(
-            (todoChildren: any) =>
-              todoChildren.todo_id === TodoChild.id && (
-                <TodoChildren TodoChild={todoChildren} />
-              )
+          {Object.entries(TodoChild).map((key: any, index) =>
+            key[1].todo_id === todos.id ? (
+              <TodoChildren
+                TodoChild={key[1]}
+                updateStatusChildren={updateStatusChildren}
+              />
+            ) : (
+              <></>
+            )
           )}
-          <div className={styles.TodoparentChildrenSubmitInput}>
-            <input type="text" placeholder={`Add a task to ${todos.title}`} />
-            <button>Submit</button>
-          </div>
+          <form
+            onSubmit={createChildrenTodoOnSubmit}
+            className={styles.TodoparentChildrenSubmitInput}
+          >
+            <input
+              type="text"
+              placeholder={`Add a task to ${todos.title}`}
+              value={inputChildren}
+              onChange={setInputChildren}
+            />
+            <button type="submit">Submit</button>
+          </form>
         </div>
       )}
     </div>

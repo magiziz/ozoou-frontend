@@ -29,3 +29,9 @@ export const createChildrenTodo = (title: string, todoId: string) =>
     .post("/todoChildren/createTodoChildren", { title, todoId })
     .then((res) => res.data)
     .catch((err) => err);
+
+export const updateChildrenTodo = (id: string, status: string) =>
+  axiosInstance
+    .put("/todoChildren/updateTodoChildren", { id, status })
+    .then((res) => res.data)
+    .catch((err) => err);

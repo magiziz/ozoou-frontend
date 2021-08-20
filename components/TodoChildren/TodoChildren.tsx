@@ -16,7 +16,7 @@ const TodoChildrenData: React.FC<Props> = ({
       <input
         type="checkbox"
         checked={TodoChild?.status === "completed" ? true : false}
-        onClick={() => updateStatusChildren(TodoChild.id)}
+        onClick={() => updateStatusChildren(TodoChild.id, TodoChild.status)}
       />
       <h1>{TodoChild?.title}</h1>
     </div>

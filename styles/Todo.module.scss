@@ -49,3 +49,68 @@
     margin-top: 20px;
   }
 }
+
+.modalBody {
+  z-index: 5;
+  .overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #4b0f70bc;
+    cursor: pointer;
+  }
+
+  .modal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 650px;
+    h2 {
+      color: #830fcd;
+      font-size: 35px;
+    }
+    p {
+      color: gray;
+      margin: 10px 0;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 15px;
+      border: 2px solid #830fcd;
+      border-radius: 5px;
+      outline-width: 0;
+      color: #830fcd;
+      margin: 10px 0;
+      width: 100%;
+    }
+
+    input::placeholder {
+      color: #830fcd;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: #830fcd;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      outline-width: 0;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 17px;
+    }
+  }
+}

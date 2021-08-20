@@ -130,6 +130,10 @@
       width: 100%;
     }
 
+    input::placeholder {
+      color: #830fcd;
+    }
+
     button {
       padding: 5px 25px;
       background: #830fcd;

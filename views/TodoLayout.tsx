@@ -8,10 +8,12 @@ import {
   getAllChildrenTodos,
   getAllListTodos,
   postTodo,
+  updateChildrenTodo,
 } from "../api/todos";
 import { Todo, TodoChildren } from "../types/todos";
 import { AxiosResponse } from "axios";
 import Loader from "react-loader-spinner";
+import Modal from "../components/Modal/Modal";
 
 const TodoLayout: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -20,6 +22,8 @@ const TodoLayout: React.FC = () => {
   const [selectedId, setSelectedId] = useState<string | any>("");
   const [input, setInput] = useState<string>("");
   const [inputChildren, setInputChildren] = useState<string | any>("");
+  const [modal, setModal] = useState<boolean | any>(false);
+  const [createTodoValue, setCreateTodoValue] = useState<string | any>("");
 
   const getListData = async () => {
     const todoData: AxiosResponse = await getAllListTodos();
@@ -28,7 +32,7 @@ const TodoLayout: React.FC = () => {
 
   const getAllChildrenTodosData = async () => {
     const todosChildrenData = await getAllChildrenTodos();
-    setTodosChild(todosChildrenData);
+    setTodosChild(todosChildrenData.data);
   };
 
   useEffect(() => {
@@ -44,14 +48,6 @@ const TodoLayout: React.FC = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-  };
-
-  const updateTodoTask = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    setLoading(true);
-    await postTodo(input);
-    setLoading(false);
   };
 
   const onSubmitUpdateTitleTodo = async (status: string, id: string) => {
@@ -70,40 +66,82 @@ const TodoLayout: React.FC = () => {
   ) => {
     e.preventDefault();
 
-    const createData = await createChildrenTodo(inputChildren, selectedId);
+    if (!inputChildren) {
+      return null;
+    } else {
+      const createData = await createChildrenTodo(inputChildren, selectedId);
 
-    if (createData) {
-      await getListData();
-      await getAllChildrenTodosData();
+      if (createData) {
+        await getListData();
+        await getAllChildrenTodosData();
+      }
+
+      setInputChildren("");
     }
-
-    setInputChildren("");
   };
 
-  const updateStatusChildren = (id: string) => {
-    alert(id);
+  const updateStatusChildren = async (id: string, status: string) => {
+    const updatedData = await updateChildrenTodo(id, status);
+
+    if (updatedData) {
+      setTodosChild(
+        todosChild.map((todoChild: any) =>
+          todoChild.id === id
+            ? {
+                ...todoChild,
+                status: status === "pending" ? "completed" : "pending",
+              }
+            : todoChild
+        )
+      );
+    }
+  };
+
+  const formSubmitCreateTodo = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!createTodoValue) {
+      return null;
+    } else {
+      setLoading(true);
+      await postTodo(createTodoValue);
+      await getListData();
+      setModal(false);
+      setLoading(false);
+    }
   };
 
   return (
     <div className={styles.todoOverlay}>
+      {modal && (
+        <Modal
+          toggleModal={() => setModal(!modal)}
+          inputValue={createTodoValue}
+          setInputValue={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setCreateTodoValue(e.target.value)
+          }
+          formSubmit={formSubmitCreateTodo}
+        />
+      )}
       <h1 className={styles.todoTitle}>JavaScript Test For OZZOU</h1>
       <Image src="/logo.png" width={250} height={250} />
-      <form onSubmit={updateTodoTask} className={styles.todoInputAddContainer}>
+      <div className={styles.todoInputAddContainer}>
         <input
           type="text"
           value={input}
           placeholder="Search for Todo List"
           onChange={onChange}
         />
-        <button type="submit">Add New List</button>
-      </form>
+        <button type="submit" onClick={() => setModal(true)}>
+          Add New List
+        </button>
+      </div>
       {loading ? (
         <Loader type="Puff" color="#5B16FA" height={150} width={150} />
       ) : (
         <TodoTable
           SelectedId={selectedId}
           todos={todos}
-          TodoChild={todosChild.data}
+          TodoChild={todosChild}
           setSelectedId={(id: string) => {
             setSelectedId(id);
           }}
@@ -112,6 +150,7 @@ const TodoLayout: React.FC = () => {
           setInputChildren={(e: React.ChangeEvent<HTMLInputElement>) =>
             setInputChildren(e.target.value)
           }
+          InputSearchValue={input}
           createChildrenTodoOnSubmit={createChildrenTodoOnSubmit}
           updateStatusChildren={updateStatusChildren}
         />

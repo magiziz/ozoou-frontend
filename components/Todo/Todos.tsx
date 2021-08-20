@@ -15,6 +15,23 @@ const Todos = ({
   createChildrenTodoOnSubmit,
   updateStatusChildren,
 }: any) => {
+  const renderCompletedValues = () => {
+    let data: any | [] = [];
+    let completedData: any | [] = [];
+
+    Object.entries(TodoChild).map((key: any, index) =>
+      key[1].todo_id === todos.id ? data.push(key[1]) : <></>
+    );
+
+    if (data) {
+      data.map((todoData: any) =>
+        todoData.status === "completed" ? completedData.push(todoData) : null
+      );
+    }
+
+    return `${completedData.length} of ${data.length} completed`;
+  };
+
   return (
     <div key={todos.id} className={styles.Todoparent}>
       <div className={styles.TodoparentCheckTotal}>
@@ -33,14 +50,14 @@ const Todos = ({
         <div className={styles.TododparentEditTime}>
           <div className={styles.TododparentEdit}>
             <span>
-              {moment(new Date(todos.created_at).toUTCString())
-                .startOf("hour")
-                .fromNow()}
+              {moment(new Date(todos.created_at).toUTCString()).format(
+                "MMM Do YYYY"
+              )}
             </span>
           </div>
 
           <p className={styles.completedTaskButton}>
-            3 of 5 completed{" "}
+            {renderCompletedValues()}{" "}
             <button onClick={() => setSelectedId(todos.id)}>
               Collapse&nbsp; <FiChevronDown />{" "}
             </button>{" "}

@@ -14,6 +14,7 @@ interface Props {
   inputChildren: any;
   createChildrenTodoOnSubmit: any;
   updateStatusChildren: any;
+  InputSearchValue: any;
 }
 
 const TodoTable: React.FC<Props> = ({
@@ -26,22 +27,28 @@ const TodoTable: React.FC<Props> = ({
   inputChildren,
   createChildrenTodoOnSubmit,
   updateStatusChildren,
+  InputSearchValue,
 }) => {
   return (
     <div className={styles.TodoTableContainer}>
-      {todos.map((todo: Todo) => (
-        <Todos
-          selectedId={SelectedId}
-          todos={todo}
-          TodoChild={TodoChild}
-          setSelectedId={setSelectedId}
-          onSubmitUpdateTitleTodo={onSubmitUpdateTitleTodo}
-          setInputChildren={setInputChildren}
-          inputChildren={inputChildren}
-          createChildrenTodoOnSubmit={createChildrenTodoOnSubmit}
-          updateStatusChildren={updateStatusChildren}
-        />
-      ))}
+      {todos
+        .filter(
+          (todos: Todo) =>
+            todos.title.toLowerCase().indexOf(InputSearchValue) !== -1
+        )
+        .map((todo: Todo) => (
+          <Todos
+            selectedId={SelectedId}
+            todos={todo}
+            TodoChild={TodoChild}
+            setSelectedId={setSelectedId}
+            onSubmitUpdateTitleTodo={onSubmitUpdateTitleTodo}
+            setInputChildren={setInputChildren}
+            inputChildren={inputChildren}
+            createChildrenTodoOnSubmit={createChildrenTodoOnSubmit}
+            updateStatusChildren={updateStatusChildren}
+          />
+        ))}
     </div>
   );
 };
